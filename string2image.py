@@ -3,7 +3,8 @@ from conf import Conf
 
 def save_image(inp, yomi):
     font = ImageFont.truetype(Conf.font_file,Conf.font_size, encoding='unic')
-    image = Image.new('RGBA', (Conf.pict_size, Conf.pict_size))
+    # image = Image.new('RGBA', (Conf.pict_size, Conf.pict_size))
+    image = Image.new('RGB', (Conf.pict_size, Conf.pict_size))
     draw = ImageDraw.Draw(image)
 
     # 引数: (文字列の左上のx座標, 文字列の左上のy座標)」「フォントの指定」「文字色」

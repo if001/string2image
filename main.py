@@ -1,7 +1,7 @@
 import string2image
 
 def main():
-    with open("./gomi.txt") as f:
+    with open("../aozora_data/files/tmp.txt") as f:
         for word in f.read():
             string2image.string2image(word)
 
