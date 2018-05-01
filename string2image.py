@@ -29,11 +29,8 @@ def get_yomi(inp):
     conv = k.getConverter()
     return conv.do(inp)
 
-from kana2roma import Kana2Roma
-
 def string2image(inp):
-    yomi_str = get_yomi(inp)
-
+    yomi_str = inp
     if is_exist(yomi_str):
         pass
         # print(Conf.save_dir + yomi_str + '.png' + " is already exist")
@@ -42,7 +39,7 @@ def string2image(inp):
     print(Conf.save_dir + yomi_str + '.png')
 
 def main():
-    inp = "我々は、今日も、歩く。"
+    inp = "a"
     for value in inp:
         string2image(value)
 
