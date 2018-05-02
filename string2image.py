@@ -33,11 +33,9 @@ def get_yomi(inp):
 def string2image(inp):
     yomi_str = inp
     if is_exist(yomi_str):
-        pass
-        # print(Conf.save_dir + yomi_str + '.png' + " is already exist")
+        print(Conf.save_dir + yomi_str + '.png' + " is already exist")
     else:
         save_image(inp, yomi_str)
-    print(Conf.save_dir + yomi_str + '.png')
 
 def main():
     inp = "a"
