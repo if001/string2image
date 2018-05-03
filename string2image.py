@@ -1,11 +1,11 @@
 from PIL import Image, ImageDraw, ImageFont
 from conf import Conf
+img_pos = [(0,0),(0,3),(3,0),(3,3)]
 
 def save_image(inp, yomi):
     font = ImageFont.truetype(Conf.font_file,Conf.font_size, encoding='unic')
 
     # 1文字にあたり、少しだけ位置をずらした画像を4つ生成する
-    img_pos = [(0,0),(0,3),(3,0),(3,3)]
     for i in range(len(img_pos)):
         image = Image.new('RGB', (Conf.pict_size, Conf.pict_size), (255, 255, 255))
         draw = ImageDraw.Draw(image)
@@ -33,8 +33,10 @@ def get_yomi(inp):
 
 def string2image(inp):
     yomi_str = inp
-    if is_exist(yomi_str):
-        print(Conf.save_dir + yomi_str + '.png' + " is already exist")
+
+    if is_exist(yomi_str + "_0"):
+        pass
+        # print(Conf.save_dir + yomi_str + '.png' + " is already exist")
     else:
         save_image(inp, yomi_str)
 
