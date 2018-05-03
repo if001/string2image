@@ -3,14 +3,15 @@ from conf import Conf
 
 def save_image(inp, yomi):
     font = ImageFont.truetype(Conf.font_file,Conf.font_size, encoding='unic')
-    # image = Image.new('RGBA', (Conf.pict_size, Conf.pict_size))
-    image = Image.new('RGB', (Conf.pict_size, Conf.pict_size))
-    draw = ImageDraw.Draw(image)
 
-    # 引数: (文字列の左上のx座標, 文字列の左上のy座標)」「フォントの指定」「文字色」
-    draw.text((0, 0), inp, font = font, fill='#000000')
-    print("save " + Conf.save_dir + yomi + '.png')
-    image.save(Conf.save_dir + yomi + '.png', 'PNG')
+    # 1文字にあたり、少しだけ位置をずらした画像を4つ生成する
+    img_pos = [(0,0),(0,3),(3,0),(3,3)]
+    for i in range(len(img_pos)):
+        image = Image.new('RGB', (Conf.pict_size, Conf.pict_size), (255, 255, 255))
+        draw = ImageDraw.Draw(image)
+        draw.text(img_pos[i], inp, font = font, fill='#000000')
+        print("save " + Conf.save_dir + yomi + "_" + str(i) + '.png')
+        image.save(Conf.save_dir + yomi + "_" + str(i) + '.png', 'PNG')
 
 
 import os
@@ -38,7 +39,7 @@ def string2image(inp):
         save_image(inp, yomi_str)
 
 def main():
-    inp = "a"
+    inp = "あ"
     for value in inp:
         string2image(value)
 
