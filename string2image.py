@@ -38,7 +38,7 @@ def gaussian_noise(img):
 
 def contrast_50(img):
     img = ImageEnhance.Contrast(img)
-    img.enhance(0.5)
+    img = img.enhance(0.5)
     return img
 
 

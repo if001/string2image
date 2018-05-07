@@ -14,7 +14,7 @@ def main():
         word_list.remove('')
 
     for word in word_list:
-        string2image.string2image2(word)
+        string2image.string2image(word)
 
 
 if __name__ == '__main__':
