@@ -50,7 +50,7 @@ def string2image2(inp):
         font = ImageFont.truetype(
             Conf.font_file, Conf.font_size, encoding='unic')
     else:
-        font = ImageFon t.truetype(
+        font = ImageFont.truetype(
             Conf.font_file, Conf.font_size_en, encoding='unic')
 
     if not is_exist(yomi_str + "_0"):
