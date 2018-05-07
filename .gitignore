@@ -2,3 +2,4 @@ __pycache__
 image/*
 !image/.gitkeep
 !.gitkeep
+.DS_Store

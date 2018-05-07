@@ -44,6 +44,28 @@ def string2image(inp):
             save_image(inp, yomi_str, font, prefix, pos=img_pos[i])
 
 
+def string2image2(inp):
+    yomi_str = inp
+    if unicodedata.east_asian_width(inp) in 'FWA':  # 全角のとき
+        font = ImageFont.truetype(
+            Conf.font_file, Conf.font_size, encoding='unic')
+    else:
+        font = ImageFon t.truetype(
+            Conf.font_file, Conf.font_size_en, encoding='unic')
+
+    if not is_exist(yomi_str + "_0"):
+        prefix = "flip"
+        save_image(inp, yomi_str, font, prefix, processing=ImageOps.flip)
+
+        prefix = "mirror"
+        save_image(inp, yomi_str, font, prefix, processing=ImageOps.mirror)
+
+        img_pos = [(0, 0), (0, 3), (3, 0), (3, 3)]
+        for i in range(len(img_pos)):
+            prefix = str(i)
+            save_image(inp, yomi_str, font, prefix, pos=img_pos[i])
+
+
 def main():
     inp = "b"
     for value in inp:
