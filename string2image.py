@@ -58,14 +58,17 @@ def dilation(img):  # 膨張
     return img
 
 
-def string2image(inp):
+def string2image(inp, font_file=None):
     yomi_str = inp
+    if font_file is None:
+        font_file = Conf.font_file
+
     if unicodedata.east_asian_width(inp) in 'FWA':  # 全角のとき
         font = ImageFont.truetype(
-            Conf.font_file, Conf.font_size, encoding='unic')
+            font_file, Conf.font_size, encoding='unic')
     else:
         font = ImageFont.truetype(
-            Conf.font_file, Conf.font_size_en, encoding='unic')
+            font_file, Conf.font_size_en, encoding='unic')
 
     img_pos = [(0, 0), (0, 3), (0, 6), (3, 0), (6, 0), (3, 3), (6, 6)]
     for i in range(len(img_pos)):
