@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageEnhance
+from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageEnhance, ImageFilter
 import unicodedata
 import os
 import numpy as np
@@ -25,17 +25,6 @@ def is_exist(yomi):
     return os.path.isfile(Conf.save_dir + yomi + '.png')
 
 
-def gaussian_noise(img):
-    row, col, ch = img.shape
-    mean = 0
-    var = 0.1
-    sigma = 15
-    gauss = np.random.normal(mean, sigma, (row, col, ch))
-    gauss = gauss.reshape(row, col, ch)
-    noisy = img + gauss
-    return noisy
-
-
 def contrast_50(img):
     img = ImageEnhance.Contrast(img)
     img = img.enhance(0.5)
@@ -54,6 +43,21 @@ def sharpness_0(img):
     return img
 
 
+def gaussian_bluer(img):
+    img = img.filter(ImageFilter.GaussianBlur(3.0))
+    return img
+
+
+def erosion(img):  # 縮小
+    img = img.filter(ImageFilter.MinFilter())
+    return img
+
+
+def dilation(img):  # 膨張
+    img = img.filter(ImageFilter.MaxFilter())
+    return img
+
+
 def string2image(inp):
     yomi_str = inp
     if unicodedata.east_asian_width(inp) in 'FWA':  # 全角のとき
@@ -63,7 +67,7 @@ def string2image(inp):
         font = ImageFont.truetype(
             Conf.font_file, Conf.font_size_en, encoding='unic')
 
-    img_pos = [(0, 0), (0, 3), (3, 0), (3, 3)]
+    img_pos = [(0, 0), (0, 3), (0, 6), (3, 0), (6, 0), (3, 3), (6, 6)]
     for i in range(len(img_pos)):
         prefix = str(i)
         if not is_exist(yomi_str + "_" + prefix):
@@ -99,6 +103,21 @@ def string2image(inp):
     if not is_exist(yomi_str + "_" + prefix):
         save_image(inp, yomi_str, font, prefix,
                    processing=sharpness_2)
+
+    prefix = "gaussianblur"
+    if not is_exist(yomi_str + "_" + prefix):
+        save_image(inp, yomi_str, font, prefix,
+                   processing=gaussian_bluer)
+
+    prefix = "erosion"
+    if not is_exist(yomi_str + "_" + prefix):
+        save_image(inp, yomi_str, font, prefix,
+                   processing=erosion)
+
+    prefix = "dilation"
+    if not is_exist(yomi_str + "_" + prefix):
+        save_image(inp, yomi_str, font, prefix,
+                   processing=dilation)
 
 
 def main():
