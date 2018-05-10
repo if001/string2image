@@ -2,8 +2,10 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageEnhance, ImageFilter
 import unicodedata
 import os
 import numpy as np
-
-from conf import Conf
+# from conf import Conf
+import sys
+sys.path.append("../")
+from string2image.conf import Conf
 
 
 def save_image(inp, yomi, font, prefix, processing=None, pos=(0, 0), rad=None):
