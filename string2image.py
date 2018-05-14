@@ -5,22 +5,22 @@ import numpy as np
 # from conf import Conf
 import sys
 sys.path.append("../")
-from string2image.conf import Conf
 
 
-def save_image(inp, yomi, font, prefix, processing=None, pos=(0, 0), rad=None):
+def save_image(yomi, font, prefix, processing=None, pos=(0, 0), rad=None):
     image = Image.new(
         'RGB', (Conf.pict_height, Conf.pict_width), (255, 255, 255))
 
     draw = ImageDraw.Draw(image)
-    draw.text(pos, inp, font=font, fill='#000000')
+    draw.text(pos, yomi, font=font, fill='#000000')
 
     if processing is not None:
         image = processing(image)
     if rad is not None:
         image = image.rotate(rad)
     print("save " + Conf.save_dir + yomi + "_" + prefix + ".png")
-    image.save(Conf.save_dir + yomi + "_" + prefix + ".png", 'PNG')
+    bytes_yomi = yomi.encode("UTF-8").hex()
+    image.save(Conf.save_dir + bytes_yomi + "_" + prefix + ".png", 'PNG')
 
 
 def is_exist(yomi):
@@ -76,52 +76,52 @@ def string2image(inp, font_file=None):
     for i in range(len(img_pos)):
         prefix = str(i)
         if not is_exist(yomi_str + "_" + prefix):
-            save_image(inp, yomi_str, font, prefix, pos=img_pos[i])
+            save_image(yomi_str, font, prefix, pos=img_pos[i])
 
     prefix = "flip"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix, processing=ImageOps.flip)
+        save_image(yomi_str, font, prefix, processing=ImageOps.flip)
 
     prefix = "mirror"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix, processing=ImageOps.mirror)
+        save_image(yomi_str, font, prefix, processing=ImageOps.mirror)
 
     prefix = "rotate_90"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix, rad=90)
+        save_image(yomi_str, font, prefix, rad=90)
 
     prefix = "rotate_180"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix, rad=180)
+        save_image(yomi_str, font, prefix, rad=180)
 
     prefix = "contrast_50"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix,
+        save_image(yomi_str, font, prefix,
                    processing=contrast_50)
 
     prefix = "sharpness_0"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix,
+        save_image(yomi_str, font, prefix,
                    processing=sharpness_0)
 
     prefix = "sharpness_2"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix,
+        save_image(yomi_str, font, prefix,
                    processing=sharpness_2)
 
     prefix = "gaussianblur"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix,
+        save_image(yomi_str, font, prefix,
                    processing=gaussian_bluer)
 
     prefix = "erosion"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix,
+        save_image(yomi_str, font, prefix,
                    processing=erosion)
 
     prefix = "dilation"
     if not is_exist(yomi_str + "_" + prefix):
-        save_image(inp, yomi_str, font, prefix,
+        save_image(yomi_str, font, prefix,
                    processing=dilation)
 
 
@@ -132,4 +132,7 @@ def main():
 
 
 if __name__ == '__main__':
+    from conf import Conf
     main()
+else:
+    from string2image.conf import Conf
