@@ -8,10 +8,6 @@ sys.path.append("../")
 from string2image.conf import Conf
 from string2image.kvs import Image2Kvs
 
-# main文からロード
-# from conf import Conf
-# from kvs import Image2Kvs
-
 
 class Image2String():
     @classmethod

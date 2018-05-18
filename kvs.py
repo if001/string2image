@@ -6,9 +6,7 @@ from PIL import Image
 import os
 import sys
 sys.path.append("../")
-# モジュールとしてロード
 from string2image.conf import Conf
-# from conf import Conf
 
 
 class Image2Kvs():
