@@ -5,6 +5,8 @@ import numpy as np
 # from conf import Conf
 import sys
 sys.path.append("../")
+# from conf import Conf
+from string2image.conf import Conf
 
 
 def save_image(yomi, font, prefix, processing=None, pos=(0, 0), rad=None):
@@ -141,7 +143,4 @@ def main():
 
 
 if __name__ == '__main__':
-    from conf import Conf
     main()
-else:
-    from string2image.conf import Conf
